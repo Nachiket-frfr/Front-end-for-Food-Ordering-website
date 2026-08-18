@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS (root-relative so it resolves the same from any route) -->
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <i class="fa-solid fa-bars" id="set_btn" title="Open Menu"></i>
+            <span id="greet"></span>
+        </div>
+        <div class="nav-right">
+            <div class="cart-icon-wrap" id="cart_toggle" title="Open Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="cart_badge">0</span>
+            </div>
+            <a href="/login" class="nav-link login-btn">Log In</a>
+            <a href="/Register" class="nav-link register-btn">Register</a>
+        </div>
+    </div>
+
+    <!-- Was missing: your CSS styles .sidebar-overlay, but no element had this id -->
+    <div class="sidebar-overlay" id="sidebar_overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <i class="fa-solid fa-xmark" id="close_btn" title="Close Menu"></i>
+        <div class="sidebar-profile">
+            <i class="fa-solid fa-user profile-icon"></i>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/Account"><i class="fa-solid fa-gear"></i> Account</a></li>
+            <li class="theme-toggle-row">
+                <span><i class="fa-solid fa-moon"></i> Dark Mode</span>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme_toggle">
+                    <span class="theme-switch-slider"></span>
+                </label>
+            </li>
+        </ul>
+        <a href="/logout" id="logout" class="sidebar-logout">Log Out</a>
+    </div>
+
+    <!-- Cart drawer: same overlay pattern as the sidebar, slides from the right -->
+    <div class="cart-overlay" id="cart_overlay"></div>
+    <aside class="cart-drawer" id="cart_drawer" aria-hidden="true">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <i class="fa-solid fa-xmark" id="cart_close" title="Close Cart"></i>
+        </div>
+        <div class="cart-items" id="cart_items">
+            <!-- populated by cart.js -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cart_subtotal">₹0</span>
+            </div>
+            <button class="checkout-btn" id="checkout_btn" disabled>Checkout</button>
+        </div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+
+    <main class="middle">
+        <!-- 1. Search Bar -->
+        <div class="search">
+            <input type="text" placeholder="Search for food, cuisines, or dishes...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <!-- 2. Horizontal Category Menu -->
+        <section class="category-section">
+            <h2 class="category-title">Inspiration for your first order</h2>
+
+            <div class="category-scroll-wrap">
+                <button class="scroll-arrow scroll-arrow-left" id="scroll_left" title="Scroll left">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="main-menu" id="main_menu">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&auto=format&fit=crop" alt="North Indian">
+                    <p>North Indian</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop" alt="Burger">
+                    <p>Burger</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop" alt="Pizza">
+                    <p>Pizza</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&auto=format&fit=crop" alt="Cake">
+                    <p>Cake</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&auto=format&fit=crop" alt="Biryani">
+                    <p>Biryani</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300&auto=format&fit=crop" alt="Desserts">
+                    <p>Desserts</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=300&auto=format&fit=crop" alt="South Indian">
+                    <p>South Indian</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=300&auto=format&fit=crop" alt="Dosa">
+                    <p>Dosa</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=300&auto=format&fit=crop" alt="Noodles">
+                    <p>Noodles</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1626074353765-517a681e40be?w=300&auto=format&fit=crop" alt="Paratha">
+                    <p>Paratha</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop" alt="Salad">
+                    <p>Salad</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop" alt="Pasta">
+                    <p>Pasta</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&auto=format&fit=crop" alt="Tacos">
+                    <p>Tacos</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=300&auto=format&fit=crop" alt="Sushi">
+                    <p>Sushi</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=300&auto=format&fit=crop" alt="Rolls">
+                    <p>Rolls</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=300&auto=format&fit=crop" alt="Chicken">
+                    <p>Chicken</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=300&auto=format&fit=crop" alt="Kebabs">
+                    <p>Kebabs</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&auto=format&fit=crop" alt="Shakes">
+                    <p>Shakes</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1509722747041-616f39b57569?w=300&auto=format&fit=crop" alt="Sandwich">
+                    <p>Sandwich</p>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=300&auto=format&fit=crop" alt="Momos">
+                    <p>Momos</p>
+                </div>
+                </div>
+
+                <button class="scroll-arrow scroll-arrow-right" id="scroll_right" title="Scroll right">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. Popular Dishes - actual purchasable items with price + id -->
+        <section class="dish-section">
+            <h2 class="category-title">Popular Dishes</h2>
+            <div class="dish-grid" id="dish_grid">
+                <div class="dish-card" data-id="d1" data-name="Butter Chicken" data-price="320">
+                    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&auto=format&fit=crop" alt="Butter Chicken">
+                    <div class="dish-info">
+                        <p class="dish-name">Butter Chicken</p>
+                        <p class="dish-price">₹320</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+                <div class="dish-card" data-id="d2" data-name="Margherita Pizza" data-price="280">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&auto=format&fit=crop" alt="Margherita Pizza">
+                    <div class="dish-info">
+                        <p class="dish-name">Margherita Pizza</p>
+                        <p class="dish-price">₹280</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+                <div class="dish-card" data-id="d3" data-name="Chicken Biryani" data-price="260">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&auto=format&fit=crop" alt="Chicken Biryani">
+                    <div class="dish-info">
+                        <p class="dish-name">Chicken Biryani</p>
+                        <p class="dish-price">₹260</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+                <div class="dish-card" data-id="d4" data-name="Classic Cheeseburger" data-price="180">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop" alt="Classic Cheeseburger">
+                    <div class="dish-info">
+                        <p class="dish-name">Classic Cheeseburger</p>
+                        <p class="dish-price">₹180</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+                <div class="dish-card" data-id="d5" data-name="Masala Dosa" data-price="140">
+                    <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400&auto=format&fit=crop" alt="Masala Dosa">
+                    <div class="dish-info">
+                        <p class="dish-name">Masala Dosa</p>
+                        <p class="dish-price">₹140</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+                <div class="dish-card" data-id="d6" data-name="Chocolate Truffle Cake" data-price="220">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&auto=format&fit=crop" alt="Chocolate Truffle Cake">
+                    <div class="dish-info">
+                        <p class="dish-name">Chocolate Truffle Cake</p>
+                        <p class="dish-price">₹220</p>
+                    </div>
+                    <div class="dish-action"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Root-relative so it resolves the same from any route (e.g. /, /login, /Account) -->
+    <script src="/static/index.js"></script>
+    <script src="/static/cart.js"></script>
+</body>
+</html>

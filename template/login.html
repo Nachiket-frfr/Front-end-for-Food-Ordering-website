@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-in</title>
+    <link rel="stylesheet" href="static/login.css">
+</head>
+<body>
+
+    <form action="/" method="POST">
+        <div class="container">
+            
+            <h3>Log-in</h3>
+         
+
+            <div class="input-group">
+                <input type="text" placeholder=" " id="username" name="username" required>
+                <label for="username">Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" placeholder=" " id="email" name="email" required>
+                <label for="email">E-mail</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" placeholder=" " id="password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="state">
+                <p>New User? <a href="/Register" style="color:cyan">Register</a></p>
+            </div>
+            
+            <!-- 3. Fixed submit button type -->
+            <div class="submit-all">
+                <button type="submit">Continue To Menu</button>
+            </div>
+
+        </div>
+    </form>
+    <script>
+    document.querySelector("form").addEventListener("submit", () => {
+        const usernameInput = document.getElementById("username").value;
+        
+     
+        localStorage.setItem("username", usernameInput);
+        localStorage.setItem("isLoggedIn", "true");
+    });
+</script>
+</body>
+</html>

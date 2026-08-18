@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="static/signup.css">
+</head>
+<body>
+    <form action="/login" method="POST">
+        <div class="container">
+
+            <h3>Nice meeting ya!</h3>
+
+            <div class="input-group">
+                <input type="text" placeholder=" " id="username" name="username" required>
+                <label for="username">Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" placeholder=" " id="email" name="email" required>
+                <label for="email">E-mail</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" placeholder=" " id="password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder=" " id="confirm_password" name="confirm_password" required>
+                <label for="confirm_password">Confirm Password</label>
+            </div>
+
+            <div class="submit-all">
+                <button type="submit">Register</button>
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>

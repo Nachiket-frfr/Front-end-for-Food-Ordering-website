@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">        
+    <link rel="stylesheet" href="static/acc.css">
+</head>
+<body>
+
+    <div class="pull-sidebar">
+        <i class="fa-solid fa-bars" id="set_btn"></i>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <i class="fa-solid fa-arrow-left" id="close_btn"></i>
+        <ul><a href="/">Main-Menu</a></ul>
+    </div>
+
+    <form action="/" method="POST">
+        <div class="container">
+            
+
+            <div class="input-group" 
+                <label for="pfp_input" style="cursor: pointer; position: relative;">
+                    <img id="profile-img" src="" alt="Profile Picture" class="profile-pic">
+                    <input type="file" id="pfp_input" accept="image/*" style="display: none;">
+                </label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="firstName" placeholder=" " required>
+                <label>First Name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="lastName" placeholder=" ">
+                <label>Middle/Last Name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="tel" name="phone" placeholder=" " pattern="[0-9]{10}" maxlength="10" required>
+                <label>Phone Number</label>
+            </div>
+
+             <div class="input-group">
+                <input type="email" name="email" placeholder=" ">
+                <label>Email</label>
+            </div>
+
+
+            <div class="address">
+                <div class="input-group">
+                    <input type="text" name="houseNo" placeholder="House No.*" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" name="area" placeholder="Residential Area*" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" name="city" placeholder="City*" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="tel" name="pincode" placeholder="Pin-Code*" pattern="[0-9]{6}" maxlength="6" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" name="state" placeholder="State*" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" name="landmark" placeholder="Landmarks (optional)">
+                </div> 
+            </div>
+
+
+            <div class="submit-all">
+                <button type="submit">Submit</button>
+            </div>
+
+        </div>
+    </form>
+
+    <script>
+        // Sidebar logic
+        const set_btn = document.getElementById("set_btn");
+        const close_btn = document.getElementById("close_btn");
+        const sidebar = document.getElementById("sidebar");
+
+        if (set_btn && sidebar) {
+            set_btn.addEventListener("click", () => {
+                sidebar.classList.add("active");
+            });
+        }
+
+        if (close_btn && sidebar) {
+            close_btn.addEventListener("click", () => {
+                sidebar.classList.remove("active");
+            });
+        }
+
+        document.addEventListener("click", (event) => {
+            if (
+                sidebar.classList.contains("active") &&
+                !sidebar.contains(event.target) &&
+                !set_btn.contains(event.target)
+            ) {
+                sidebar.classList.remove("active");
+            }
+        });
+
+        // Profile Picture logic
+        const pfp_img = document.getElementById("profile-img");
+        const pfpInput = document.getElementById("pfp_input");
+
+        pfp_img.src = localStorage.getItem("userPFP") || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+        pfpInput.addEventListener("change", (e) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                pfp_img.src = reader.result;
+                localStorage.setItem("userPFP", reader.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
+</body>
+</html>

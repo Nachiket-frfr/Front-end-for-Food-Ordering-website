@@ -117,4 +117,26 @@ document.addEventListener("DOMContentLoaded", () => {
             mainMenu.scrollBy({ left: 400, behavior: "smooth" });
         }
     });
+
+const colorPicker = document.getElementById("colors");
+const root=document.documentElement;
+
+colorPicker.addEventListener('input',(event)=>{
+    root.style.setProperty('--bg-main', event.target.value);
+});
+
+const sidebarImg = document.getElementById("sidebar-img");
+
+
+const defaultAvatar = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+function updateSidebarPFP() {
+    const savedPFP = localStorage.getItem("userPFP");
+    if (sidebarImg) {
+        sidebarImg.src = savedPFP || defaultAvatar;
+    }
+}
+
+updateSidebarPFP();
+
 });

@@ -223,6 +223,18 @@ label[for="pfp_input"]:hover .profile-pic {
     margin-top: 8px;
 }
 
+.pfp button{
+  background: var(--accent-color);
+    border: none;
+    color: #ffffff; 
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 36px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
 .submit-all button {
     background: var(--accent-color);
     border: none;

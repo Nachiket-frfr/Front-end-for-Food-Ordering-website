@@ -23,15 +23,19 @@
         </div>
     </div>
 
-    <div class="sidebar-overlay" id="sidebar_overlay"></div>
-
     <div class="sidebar" id="sidebar">
         <i class="fa-solid fa-xmark" id="close_btn" title="Close Menu"></i>
         <div class="sidebar-profile">
-            <i class="fa-solid fa-user profile-icon"></i>
+            <img id="sidebar-img" src="" alt="Profile" class="sidebar-pic">
         </div>
         <ul class="sidebar-menu">
             <li><a href="/Account"><i class="fa-solid fa-gear"></i> Account</a></li>
+            <ul>
+               <div class="colors" id="colors"> 
+            <i class="fa-solid fa-fill" style="color: rgb(183, 175, 175);"></i>
+            <input type="color">
+                </div>
+        </ul>
             <li class="theme-toggle-row">
                 <span><i class="fa-solid fa-moon"></i> Dark Mode</span>
                 <label class="theme-switch">
@@ -40,6 +44,7 @@
                 </label>
             </li>
         </ul>
+        
         <a href="/logout" id="logout" class="sidebar-logout">Log Out</a>
     </div>
 
@@ -70,7 +75,6 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
-        /*2. Horizontal Category Menu-*/
         <section class="category-section">
             <h2 class="category-title">Inspiration for your first order</h2>
 

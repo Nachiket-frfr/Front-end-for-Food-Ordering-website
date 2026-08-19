@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">        
     <link rel="stylesheet" href="static/acc.css">
 </head>
@@ -17,15 +18,15 @@
         <ul><a href="/">Main-Menu</a></ul>
     </div>
 
-    <form action="/" method="POST">
+    <form action="/" method="POST" enctype="multipart/form-data">
         <div class="container">
-            
 
-            <div class="input-group" 
-                <label for="pfp_input" style="cursor: pointer; position: relative;">
+            <div class="input-group"> 
+                <div  class="pfp" style="position: relative; display: inline-block;">
                     <img id="profile-img" src="" alt="Profile Picture" class="profile-pic">
-                    <input type="file" id="pfp_input" accept="image/*" style="display: none;">
-                </label>
+                    <input type="file" id="pfp_input" name="profile_pic" accept="image/*" style="display: none;">
+                    <button id="upload-btn" type="button">Change Photo</button>
+                </div>
             </div>
 
             <div class="input-group">
@@ -47,7 +48,6 @@
                 <input type="email" name="email" placeholder=" ">
                 <label>Email</label>
             </div>
-
 
             <div class="address">
                 <div class="input-group">
@@ -74,7 +74,6 @@
                     <input type="text" name="landmark" placeholder="Landmarks (optional)">
                 </div> 
             </div>
-
 
             <div class="submit-all">
                 <button type="submit">Submit</button>
@@ -103,6 +102,7 @@
 
         document.addEventListener("click", (event) => {
             if (
+                sidebar &&
                 sidebar.classList.contains("active") &&
                 !sidebar.contains(event.target) &&
                 !set_btn.contains(event.target)
@@ -112,18 +112,27 @@
         });
 
         // Profile Picture logic
-        const pfp_img = document.getElementById("profile-img");
         const pfpInput = document.getElementById("pfp_input");
+        const pfpImg = document.getElementById("profile-img");
+        const uploadBtn = document.getElementById("upload-btn");
 
-        pfp_img.src = localStorage.getItem("userPFP") || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        pfpImg.src = localStorage.getItem("userPFP") || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+        // Click event listener to open file browser
+        uploadBtn.addEventListener("click", () => {
+            pfpInput.click();
+        });
 
         pfpInput.addEventListener("change", (e) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                pfp_img.src = reader.result;
-                localStorage.setItem("userPFP", reader.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    pfpImg.src = event.target.result;
+                    localStorage.setItem("userPFP", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 </body>

@@ -83,13 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    if (logout) {
-        logout.addEventListener("click", () => {
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userName");
-            localStorage.removeItem("username");
-        });
-    }
+    function handleLogout(event) {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("userPFP");      
+    localStorage.removeItem("userProfilePic");
+    localStorage.removeItem("cart");          
+    sessionStorage.clear();
+}
 
     // ---------- Category scroll arrows ----------
     const mainMenu = document.getElementById("main_menu");
